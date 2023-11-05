@@ -10,18 +10,25 @@ class CalculatorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Consumer<CalculatorModel>(
-              builder: (context, model, child) {
-                return TextField(
-                  controller: model.editorController,
-                );
-              },
-            ),
-            Expanded(child: CalculatorKeypad())
-          ],
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 400, maxHeight: 600),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Consumer<CalculatorModel>(
+                  builder: (context, model, child) {
+                    return TextField(
+                      readOnly: true,
+                      controller: model.editorController,
+                    );
+                  },
+                ),
+              ),
+              Expanded(child: CalculatorKeypad())
+            ],
+          ),
         ),
       ),
     );
