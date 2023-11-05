@@ -15,11 +15,23 @@ class CalculatorModel extends ChangeNotifier {
   }
 
   void removeNumber() {
-    result = result / ~10;
+    if (operation == CalculatorOperation.none) {
+      result = 0.0;
+    } else {
+      result = result % 10;
+    }
+
+    editorController.text = result.toString();
     notifyListeners();
   }
 
-  void clearScreen() {}
+  void clearScreen() {
+    result = 0.0;
+    operation = CalculatorOperation.none;
+    temp = 0.0;
+    editorController.text = result.toString();
+    notifyListeners();
+  }
 
   void setOperation(CalculatorOperation operation) {
     this.operation = operation;
@@ -33,20 +45,21 @@ class CalculatorModel extends ChangeNotifier {
       case CalculatorOperation.none:
         break;
       case CalculatorOperation.summation:
-        result = result + temp;
+        result = temp + result;
         break;
       case CalculatorOperation.subtraction:
-        result = result - temp;
+        result = temp - result;
         break;
       case CalculatorOperation.division:
-        result = result / temp;
+        result = temp / result;
         break;
       case CalculatorOperation.multiplication:
-        result = result * temp;
+        result = temp * result;
         break;
     }
     operation = CalculatorOperation.none;
     temp = 0.0;
+    editorController.text = result.toString();
     notifyListeners();
   }
 }
