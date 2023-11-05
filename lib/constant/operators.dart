@@ -1,4 +1,5 @@
-enum Operators {
+enum CalculatorOperation {
+  none,
   summation,
   subtraction,
   division,
